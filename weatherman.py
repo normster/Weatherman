@@ -9,7 +9,7 @@ def get_temps(city, state):
 	forecast = json.loads(r2.text)
 	windy = []
 	
-	for x in range(0, 12):
+	for x in range(0, 7):
 		civil = forecast['hourly_forecast'][x]['FCTTIME']['civil']
 		wspd = int(forecast['hourly_forecast'][x]['wspd']['english'])
 		if wspd >= 10:
@@ -17,12 +17,12 @@ def get_temps(city, state):
 		print('%8s  ' % civil, end = "")
 
 	print('\n')
-	for x in range(0, 12):
+	for x in range(0, 7):
 		temp = int(forecast['hourly_forecast'][x]['temp']['english'])
 		print('  %3s°F   ' % temp, end = '')
 		
 	print('\n')
-	for x in range(0, 12):
+	for x in range(0, 7):
 		feelslike = int(forecast['hourly_forecast'][x]['feelslike']['english'])
 		print('  %3s°F   ' % feelslike, end = '')
 	
@@ -48,6 +48,7 @@ if correct == 'y':
 	try:
 		print('\nHere\'s how the next 12 hours look!\n\n')
 		get_temps(city, state)
+		input()
 	except:
 		print('Oops! Invalid city or state')
 		
@@ -57,5 +58,6 @@ if correct == 'n':
 		state = input('Please input state initials: ')
 		print('\nHere\'s how the next 12 hours look!\n\n')
 		get_temps(city.replace(' ', '_'), state)
+		input()
 	except:
 		print('\nOops! Invalid city or state')
